@@ -55,18 +55,7 @@ if __name__ == '__main__':
 		if diff>0 and diff<600:
 		    count+=1
 		    break
-	def findTrips(pId, records):
-    import datetime
-    lastTaxiTime = None
-    for dt,event in records:
-        t = datetime.datetime.strptime(dt,'%Y-%m-%d %H:%M:%S')
-        if event==1:
-            if lastTaxiTime!=None:
-                diff = (t-lastTaxiTime).total_seconds()
-                if diff>=0 and diff<10:
-                    yield (dt,event)
-        else:
-            lastTaxiTime = t
+
 	count = sc.parallelize(gAll.sortByKey().mapPartitionsWithIndex(findTrips).count())
 	res = count.saveAsTextFile("output")
 
@@ -74,4 +63,5 @@ if __name__ == '__main__':
 	#file = open("Lab10Solution.txt","w")
 	#file.write(sCount)
 	#file.close()
+	#new 
 
